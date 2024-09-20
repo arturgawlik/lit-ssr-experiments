@@ -1,0 +1,18 @@
+{
+    "type": "module",
+    "scripts": {
+        "vite": "vite",
+        "start": "node --import 'data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(pathToFileURL(\"./node-http-loader.js\"));' server.js",
+        "start:watch": "node --import 'data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(pathToFileURL(\"./node-http-loader.js\"));' --watch server.js"
+    },
+    "dependencies": {
+        "@lit-labs/ssr": "^3.2.2",
+        "global-jsdom": "^25.0.0",
+        "jsdom": "^25.0.0",
+        "lit": "^3.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "^22.5.5",
+        "vite": "^5.4.6"
+    }
+}
