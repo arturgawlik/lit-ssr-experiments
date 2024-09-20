@@ -5,10 +5,9 @@ import { createReadStream } from "node:fs";
 import { pipeline } from "node:stream";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 
-import "./custom-element.js";
 import { collectResult } from "@lit-labs/ssr/lib/render-result.js";
 
-createServer((req, res) => {
+createServer(async (req, res) => {
   try {
     const fileUrl = getFileUrl(req);
     const contentType = getContentType(fileUrl);
@@ -19,7 +18,7 @@ createServer((req, res) => {
     });
 
     if (isIndexHtml(fileUrl)) {
-      handleIndexHtml(fileStream, res);
+      await handleIndexHtml(fileStream, res);
     } else {
       handleOtherFiles(fileStream, res);
     }
@@ -56,7 +55,9 @@ function isIndexHtml(fileUrl) {
   return fileUrl.includes("index.html");
 }
 
-function handleIndexHtml(fileStream, res) {
+async function handleIndexHtml(fileStream, res) {
+  await loadComponents();
+
   pipeline(
     fileStream,
     async function* (source) {
@@ -87,4 +88,8 @@ function handlePiplineError(res) {
       console.log("pipline successed");
     }
   };
+}
+
+async function loadComponents() {
+  await import("./custom-element.js");
 }

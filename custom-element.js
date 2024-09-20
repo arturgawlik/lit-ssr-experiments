@@ -1,9 +1,6 @@
-import { LitElement, html, css, isServer } from "lit";
-// import {
-//   LitElement,
-//   html,
-//   css,
-// } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+import "@lit-labs/ssr-client/lit-element-hydrate-support.js";
+
+import { LitElement, html, css } from "lit";
 
 const customElementTmpl = ({
   hideGreeting,
